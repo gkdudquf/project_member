@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>id</th>
+        <th>email</th>
+        <th>name</th>
+        <th>birth</th>
+        <th>mobile</th>
+        <th>detail</th>
+    </tr>
+    <tr th:each="member: ${memberList}">
+        <td th:text="${member.id}"></td>
+        <td><a th:href="@{|/member/detail/${member.id}|}" th:text="${member.memberEmail}"></a></td>
+        <td th:text="${member.memberName}"></td>
+        <td th:text="${member.memberBirth}"></td>
+        <td th:text="${member.memberMobile}"></td>
+        <td><button th:onclick="detail([[${member.id}]])">조회</button> </td>
+    </tr>
+</table>
+<div id="axios_detail()"></div>
+</body>
+<script th:inline="javascript">
+    const detail = (id) => {
+        const detailArea = document.querySelector("#{axios_detail}");
+        axios({
+            method: "get",
+            url: "/member/findById" + id
+        }).then(res => {
+
+        }).catch(err => {
+
+        })
+
+
+    }
+</script>
+</html>
